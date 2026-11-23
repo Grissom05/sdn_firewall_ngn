@@ -1,0 +1,8 @@
+
+
+ip addr add 192.168.100.100/24 dev eth0   #assegno l'indirizzo ip all'interfaccia del controller
+ip link set eth0 up
+
+ryu-manager --ofp-tcp-listen-port 6653   # Imposta la porta TCP sulla quale Ryu riceve le connessioni OpenFlow.
+
+#ryu-manager --ofp-tcp-listen-port 6653 /root/firewall.py  per quando implementeremo la logica del firewall 
