@@ -56,7 +56,9 @@
 # Indirizzo verificato attraverso test di connettività
 # tra WSL e la macchina virtuale.
 #
-RYU_CONTROLLER_IP = "192.168.56.10" #indirizzo 
+RYU_CONTROLLER_IP = "192.168.100.100"
+
+
 
 
 # ------------------------------------------------------------
@@ -71,7 +73,7 @@ RYU_CONTROLLER_IP = "192.168.56.10" #indirizzo
 # La REST API permette al backend di interrogare il controller
 # e di richiedere operazioni sugli switch OpenFlow.
 #
-RYU_REST_PORT = 8080
+RYU_OPENFLOW_PORT = 6653
 
 
 # ------------------------------------------------------------
@@ -92,4 +94,4 @@ RYU_REST_PORT = 8080
 # indirizzo dai servizi che gestiscono le comunicazioni
 # con il controller.
 #
-RYU_BASE_URL = f"http://{RYU_CONTROLLER_IP}:{RYU_REST_PORT}"
+RYU_BASE_URL = f"http://{RYU_CONTROLLER_IP}:{RYU_REST_PORT}" 
