@@ -148,3 +148,35 @@ ip link set eth0 up
 
 
 Salva con CTRL+O, Invio, CTRL+X
+
+
+8. Configurazione dell'ambiente Python
+
+Le dipendenze Python del progetto sono elencate in `requirements.txt`
+nella cartella principale. Dalla cartella principale del progetto, crea
+e attiva l'ambiente virtuale e installa le dipendenze.
+
+Su Windows (PowerShell):
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+```
+
+Su Linux o WSL:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
+
+Per uscire dall'ambiente virtuale:
+
+```text
+deactivate
+```
+
+L'ambiente `.venv` contiene le dipendenze del backend Python e non sostituisce
+l'ambiente OS-Ken utilizzato dal controller nel laboratorio Kathara.
