@@ -19,7 +19,7 @@ src_controller/
   frontend/
     index.html              # interfaccia amministrativa (da sviluppare)
   ryu/
-    sdn_controller.py       # applicazione Ryu/OS-Ken (da sviluppare)
+    sdn_controller.py       # controller Ryu dimostrativo
 robe di giuse/
   lab.conf                  # topologia Kathara
   *.startup                 # configurazione dei nodi del laboratorio
@@ -34,17 +34,22 @@ Flusso previsto: GUI → API FastAPI → servizi backend → REST del controller
 Ryu/OS-Ken → messaggi OpenFlow → switch OVS. La porta OpenFlow (6653) è distinta
 dalla porta REST (8080). La configurazione Kathara attuale avvia il listener
 OpenFlow; l'endpoint REST va abilitato nel controller prima dell'integrazione
-con il backend.
+con il backend. L'applicazione custom non è caricata automaticamente: per
+eseguirla, il file deve essere disponibile nel nodo `ctrl` e passato a
+`ryu-manager`.
 
 ### Stato dello scheletro
 
 - FastAPI espone route versionate per regole, host e monitoraggio.
 - Il modello firewall copre IP sorgente/destinazione, protocollo, porta TCP/UDP,
   azione, stato e scadenza con fuso orario.
+- `src_controller/ryu/sdn_controller.py` contiene un controller Ryu/OpenFlow 1.3
+  dimostrativo: apprende gli indirizzi MAC e installa una regola di drop TCP
+  sulla porta 2020, con scadenza di cinque minuti.
 - Le route non ancora implementate rispondono `501 Not Implemented`: non
-  dichiarano regole come attive e non applicano ancora flow agli switch.
+  dichiarano regole API come attive e non le sincronizzano ancora col controller.
 - Rilevamento dinamico, persistenza, GUI e applicazione OpenFlow sono fasi
-  successive.
+  successive per le regole create via API.
 
 ## Avvio rapido del backend
 
