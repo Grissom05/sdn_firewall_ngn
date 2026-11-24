@@ -1,8 +1,75 @@
-# sdn_firewall_ngn
- Group project for the Next generation networks exam
+# SDN Firewall
+
+Progetto di gruppo per l'esame di Next Generation Networks: firewall software
+centralizzato, amministrato via API e applicato agli switch Open vSwitch tramite
+un controller SDN.
+
+## Architettura e struttura
+
+```text
+src_controller/
+  backend/
+    main.py                 # applicazione FastAPI e registrazione delle route
+    api/                    # endpoint firewall, host e monitoraggio
+    core/                   # configurazione dell'applicazione
+    models/                 # modelli e validazione dei dati
+    services/               # logica firewall, monitoraggio e client Ryu
+    tests/                  # test automatici del backend
+    .env.example            # configurazione locale di esempio
+  frontend/
+    index.html              # interfaccia amministrativa (da sviluppare)
+  ryu/
+    sdn_controller.py       # applicazione Ryu/OS-Ken (da sviluppare)
+robe di giuse/
+  lab.conf                  # topologia Kathara
+  *.startup                 # configurazione dei nodi del laboratorio
+requirements.txt            # dipendenze condivise
+```
+
+Il laboratorio collega PC1-PC2 alla LAN1, PC3-PC4 alla LAN2, un server alla
+LAN3 e un host esterno alla rete EXT. Lo switch `s1` (OVS) collega questi
+segmenti e il controller sulla rete di management CTRL.
+
+Flusso previsto: GUI → API FastAPI → servizi backend → REST del controller
+Ryu/OS-Ken → messaggi OpenFlow → switch OVS. La porta OpenFlow (6653) è distinta
+dalla porta REST (8080). La configurazione Kathara attuale avvia il listener
+OpenFlow; l'endpoint REST va abilitato nel controller prima dell'integrazione
+con il backend.
+
+### Stato dello scheletro
+
+- FastAPI espone route versionate per regole, host e monitoraggio.
+- Il modello firewall copre IP sorgente/destinazione, protocollo, porta TCP/UDP,
+  azione, stato e scadenza con fuso orario.
+- Le route non ancora implementate rispondono `501 Not Implemented`: non
+  dichiarano regole come attive e non applicano ancora flow agli switch.
+- Rilevamento dinamico, persistenza, GUI e applicazione OpenFlow sono fasi
+  successive.
+
+## Avvio rapido del backend
+
+Dalla radice del repository, crea/attiva l'ambiente virtuale e installa le
+dipendenze elencate più avanti in questa guida. Avvia poi l'API:
+
+```powershell
+.\.venv\Scripts\python.exe -m uvicorn src_controller.backend.main:app --reload
+```
+
+In WSL/Linux:
+
+```bash
+.venv/bin/python -m uvicorn src_controller.backend.main:app --reload
+```
+
+Documentazione interattiva: `http://127.0.0.1:8000/docs`. Per configurare
+l'indirizzo REST del controller, copia
+`src_controller/backend/.env.example` in `src_controller/backend/.env` e
+modifica `SDN_FIREWALL_RYU_BASE_URL` se necessario.
+
+## Laboratorio Kathara
 
 Posizionati nella cartella del progetto:
-cd ~/sdn_firewall
+cd ~/sdn_firewall_ngn
 
 
 Avvia il laboratorio:
