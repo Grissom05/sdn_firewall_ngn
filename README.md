@@ -154,12 +154,13 @@ Salva con CTRL+O, Invio, CTRL+X
 
 Le dipendenze Python del progetto sono elencate in `requirements.txt`
 nella cartella principale. Dalla cartella principale del progetto, crea
-e attiva l'ambiente virtuale e installa le dipendenze.
+e attiva l'ambiente virtuale con Python 3.15 (verificato con la versione
+3.15.2) e installa le dipendenze.
 
 Su Windows (PowerShell):
 
 ```powershell
-py -m venv .venv
+py -3.15 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
 ```
@@ -167,7 +168,7 @@ python -m pip install -r requirements.txt
 Su Linux o WSL:
 
 ```bash
-python3 -m venv .venv
+python3.15 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
