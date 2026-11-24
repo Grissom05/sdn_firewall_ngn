@@ -1,9 +1,0 @@
-
-
-ip addr add 192.168.100.100/24 dev eth0   #assegno l'indirizzo ip all'interfaccia del controller
-ip link set eth0 up
-
-ryu-manager --ofp-tcp-listen-port 6653   # Sostituire con il comando di esempio qui sotto per caricare l'app custom.
-
-# Dopo aver reso il file disponibile nel container, usare al posto del comando sopra:
-# ryu-manager --ofp-tcp-listen-port 6653 /root/sdn_controller.py
